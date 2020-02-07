@@ -81,6 +81,26 @@ router.post(
   }
 );
 
+// @route  DELETE api/profile/pupil
+// @desc   Delete Pupil profile & user
+// @access Private
+router.delete('/pupil', auth, async (req, res) => {
+  try {
+    // Remove profile
+    await PupilProfile.findOneAndRemove({ user: req.user.id });
+    // Remove User
+    await PupilUser.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: 'User deleted' });
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind == 'ObjectId') {
+      return res.status(400).json({ msg: 'Profile not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
 //
 
 //                                                  *** ABOVE: PUPIL *** *** BELOW: MENTOR ***
@@ -197,6 +217,26 @@ router.get('/mentor/:mentor_id', async (req, res) => {
     if (!profile) return res.status(400).json({ msg: 'Profile not found' });
 
     res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind == 'ObjectId') {
+      return res.status(400).json({ msg: 'Profile not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route  DELETE api/profile/mentor
+// @desc   Delete Mentor profile & user
+// @access Private
+router.delete('/mentor', auth, async (req, res) => {
+  try {
+    // Remove profile
+    await MentorProfile.findOneAndRemove({ user: req.user.id });
+    // Remove User
+    await MentorUser.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: 'User deleted' });
   } catch (err) {
     console.error(err.message);
     if (err.kind == 'ObjectId') {
