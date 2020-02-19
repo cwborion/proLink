@@ -2,9 +2,10 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
+import { pupilRegister } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const PupilRegister = ({ setAlert }) => {
+const PupilRegister = ({ setAlert, pupilRegister }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,7 +23,7 @@ const PupilRegister = ({ setAlert }) => {
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
-      console.log(formData);
+      pupilRegister({ name, email, password });
     }
   };
 
@@ -40,7 +41,7 @@ const PupilRegister = ({ setAlert }) => {
             name='name'
             value={name}
             onChange={e => onChange(e)}
-            required
+            // required
           />
         </div>
         <div className='form-group'>
@@ -50,6 +51,7 @@ const PupilRegister = ({ setAlert }) => {
             name='email'
             value={email}
             onChange={e => onChange(e)}
+            // required
           />
         </div>
         <div className='form-group'>
@@ -59,7 +61,7 @@ const PupilRegister = ({ setAlert }) => {
             name='password'
             value={password}
             onChange={e => onChange(e)}
-            minLength='6'
+            // minLength='6'
           />
         </div>
         <div className='form-group'>
@@ -69,7 +71,7 @@ const PupilRegister = ({ setAlert }) => {
             name='password2'
             value={password2}
             onChange={e => onChange(e)}
-            minLength='6'
+            // minLength='6'
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
@@ -82,7 +84,8 @@ const PupilRegister = ({ setAlert }) => {
 };
 
 PupilRegister.propTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  pupilRegister: PropTypes.func.isRequired
 };
 
-export default connect(null, { setAlert })(PupilRegister);
+export default connect(null, { setAlert, pupilRegister })(PupilRegister);

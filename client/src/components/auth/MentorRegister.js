@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
+import { mentorRegister } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 const MentorRegister = ({ setAlert }) => {
@@ -22,7 +23,7 @@ const MentorRegister = ({ setAlert }) => {
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
-      console.log(formData);
+      mentorRegister({ name, email, password });
     }
   };
 
@@ -40,7 +41,7 @@ const MentorRegister = ({ setAlert }) => {
             name='name'
             value={name}
             onChange={e => onChange(e)}
-            required
+            // required
           />
         </div>
         <div className='form-group'>
@@ -50,6 +51,7 @@ const MentorRegister = ({ setAlert }) => {
             name='email'
             value={email}
             onChange={e => onChange(e)}
+            // required
           />
         </div>
         <div className='form-group'>
@@ -59,7 +61,7 @@ const MentorRegister = ({ setAlert }) => {
             name='password'
             value={password}
             onChange={e => onChange(e)}
-            minLength='6'
+            // minLength='6'
           />
         </div>
         <div className='form-group'>
@@ -69,7 +71,7 @@ const MentorRegister = ({ setAlert }) => {
             name='password2'
             value={password2}
             onChange={e => onChange(e)}
-            minLength='6'
+            // minLength='6'
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
@@ -82,7 +84,8 @@ const MentorRegister = ({ setAlert }) => {
 };
 
 MentorRegister.propTypes = {
-  setAlert: PropTypes.func.isRequired
+  setAlert: PropTypes.func.isRequired,
+  mentorRegister: PropTypes.func.isRequired
 };
 
-export default connect(null, { setAlert })(MentorRegister);
+export default connect(null, { setAlert, mentorRegister })(MentorRegister);

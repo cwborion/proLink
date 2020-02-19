@@ -7,7 +7,7 @@ const { check, validationResult } = require('express-validator');
 
 const Mentor = require('../../models/MentorUser');
 
-// @route POST api/pupils
+// @route POST api/mentors
 // @desc Register mentor user
 // @access Public
 router.post(
