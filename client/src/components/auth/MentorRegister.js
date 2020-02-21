@@ -5,7 +5,7 @@ import { setAlert } from '../../actions/alert';
 import { mentorRegister } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const MentorRegister = ({ setAlert }) => {
+const MentorRegister = ({ setAlert, mentorRegister }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,7 +41,7 @@ const MentorRegister = ({ setAlert }) => {
             name='name'
             value={name}
             onChange={e => onChange(e)}
-            // required
+            required
           />
         </div>
         <div className='form-group'>
@@ -51,7 +51,7 @@ const MentorRegister = ({ setAlert }) => {
             name='email'
             value={email}
             onChange={e => onChange(e)}
-            // required
+            required
           />
         </div>
         <div className='form-group'>
@@ -61,7 +61,7 @@ const MentorRegister = ({ setAlert }) => {
             name='password'
             value={password}
             onChange={e => onChange(e)}
-            // minLength='6'
+            minLength='6'
           />
         </div>
         <div className='form-group'>
@@ -71,13 +71,13 @@ const MentorRegister = ({ setAlert }) => {
             name='password2'
             value={password2}
             onChange={e => onChange(e)}
-            // minLength='6'
+            minLength='6'
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>
       <p className='my-1'>
-        Already have an account? <Link to='/mentor-login'>Sign In</Link>
+        Already have an account? <Link to='/pupil-login'>Sign In</Link>
       </p>
     </Fragment>
   );

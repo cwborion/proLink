@@ -1,10 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loginMentor } from '../../actions/auth';
 
-const MentorLogin = () => {
+const MentorLogin = ({ loginMentor }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: ''
+    email: '',
+    password: ''
   });
 
   const { email, password } = formData;
@@ -12,9 +15,9 @@ const MentorLogin = () => {
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    console.log('SUCCESS');
+    loginMentor(email, password);
   };
 
   return (
@@ -31,6 +34,7 @@ const MentorLogin = () => {
             name='email'
             value={email}
             onChange={e => onChange(e)}
+            required
           />
         </div>
         <div className='form-group'>
@@ -52,4 +56,8 @@ const MentorLogin = () => {
   );
 };
 
-export default MentorLogin;
+MentorLogin.propTypes = {
+  loginMentor: PropTypes.func.isRequired
+};
+
+export default connect(null, { loginMentor })(MentorLogin);

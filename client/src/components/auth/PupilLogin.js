@@ -1,10 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { loginPupil } from '../../actions/auth';
 
-const PupilLogin = () => {
+const PupilLogin = ({ loginPupil }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: ''
+    email: '',
+    password: ''
   });
 
   const { email, password } = formData;
@@ -12,9 +15,9 @@ const PupilLogin = () => {
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    console.log('SUCCESS');
+    loginPupil(email, password);
   };
 
   return (
@@ -31,6 +34,7 @@ const PupilLogin = () => {
             name='email'
             value={email}
             onChange={e => onChange(e)}
+            required
           />
         </div>
         <div className='form-group'>
@@ -52,4 +56,8 @@ const PupilLogin = () => {
   );
 };
 
-export default PupilLogin;
+PupilLogin.propTypes = {
+  loginPupil: PropTypes.func.isRequired
+};
+
+export default connect(null, { loginPupil })(PupilLogin);
