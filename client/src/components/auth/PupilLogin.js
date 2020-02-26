@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginPupil } from '../../actions/auth';
 
-const PupilLogin = ({ loginPupil }) => {
+const PupilLogin = ({ loginPupil, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -19,6 +19,11 @@ const PupilLogin = ({ loginPupil }) => {
     e.preventDefault();
     loginPupil(email, password);
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -57,7 +62,12 @@ const PupilLogin = ({ loginPupil }) => {
 };
 
 PupilLogin.propTypes = {
-  loginPupil: PropTypes.func.isRequired
+  loginPupil: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
-export default connect(null, { loginPupil })(PupilLogin);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { loginPupil })(PupilLogin);

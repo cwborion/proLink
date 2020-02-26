@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { pupilRegister } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const PupilRegister = ({ setAlert, pupilRegister }) => {
+const PupilRegister = ({ setAlert, pupilRegister, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,6 +26,10 @@ const PupilRegister = ({ setAlert, pupilRegister }) => {
       pupilRegister({ name, email, password });
     }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -85,7 +89,15 @@ const PupilRegister = ({ setAlert, pupilRegister }) => {
 
 PupilRegister.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  pupilRegister: PropTypes.func.isRequired
+  pupilRegister: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
-export default connect(null, { setAlert, pupilRegister })(PupilRegister);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {
+  setAlert,
+  pupilRegister
+})(PupilRegister);

@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { mentorRegister } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const MentorRegister = ({ setAlert, mentorRegister }) => {
+const MentorRegister = ({ setAlert, mentorRegister, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,6 +26,10 @@ const MentorRegister = ({ setAlert, mentorRegister }) => {
       mentorRegister({ name, email, password });
     }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -85,7 +89,15 @@ const MentorRegister = ({ setAlert, mentorRegister }) => {
 
 MentorRegister.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  mentorRegister: PropTypes.func.isRequired
+  mentorRegister: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
-export default connect(null, { setAlert, mentorRegister })(MentorRegister);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {
+  setAlert,
+  mentorRegister
+})(MentorRegister);

@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginMentor } from '../../actions/auth';
 
-const MentorLogin = ({ loginMentor }) => {
+const MentorLogin = ({ loginMentor, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -19,6 +19,10 @@ const MentorLogin = ({ loginMentor }) => {
     e.preventDefault();
     loginMentor(email, password);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -57,7 +61,12 @@ const MentorLogin = ({ loginMentor }) => {
 };
 
 MentorLogin.propTypes = {
-  loginMentor: PropTypes.func.isRequired
+  loginMentor: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 
-export default connect(null, { loginMentor })(MentorLogin);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { loginMentor })(MentorLogin);

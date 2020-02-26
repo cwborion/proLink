@@ -63,7 +63,7 @@ export const pupilRegister = ({ name, email, password }) => async dispatch => {
 };
 
 // Login Pupil User
-export const loginPupil = ({ email, password }) => async dispatch => {
+export const loginPupil = (email, password) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -148,7 +148,7 @@ export const mentorRegister = ({ name, email, password }) => async dispatch => {
 };
 
 // Login Mentor User
-export const loginMentor = ({ email, password }) => async dispatch => {
+export const loginMentor = (email, password) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
