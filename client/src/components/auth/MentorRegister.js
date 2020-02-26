@@ -28,7 +28,7 @@ const MentorRegister = ({ setAlert, mentorRegister, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/mentor-dashboard' />;
   }
 
   return (

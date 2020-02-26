@@ -28,7 +28,7 @@ const PupilRegister = ({ setAlert, pupilRegister, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/pupil-dashboard' />;
   }
 
   return (

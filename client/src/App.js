@@ -9,6 +9,9 @@ import MentorRegister from './components/auth/MentorRegister';
 import MentorLogin from './components/auth/MentorLogin';
 import PupilLogin from './components/auth/PupilLogin';
 import Alert from './components/layout/Alert';
+import PupilDashboard from './components/dashboard/PupilDashboard';
+import MentorDashboard from './components/dashboard/MentorDashboard';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -43,6 +46,16 @@ const App = () => {
               <Route exact path='/mentor-register' component={MentorRegister} />
               <Route exact path='/pupil-login' component={PupilLogin} />
               <Route exact path='/mentor-login' component={MentorLogin} />
+              <PrivateRoute
+                exact
+                path='/pupil-dashboard'
+                component={PupilDashboard}
+              />
+              <PrivateRoute
+                exact
+                path='/mentor-dashboard'
+                component={MentorDashboard}
+              />
             </Switch>
           </section>
         </Fragment>
