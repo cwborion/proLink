@@ -3,11 +3,13 @@ import { setAlert } from './alert';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  USER_LOADED,
+  PUPIL_USER_LOADED,
+  MENTOR_USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
+  CLEAR_PROFILE
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -21,7 +23,7 @@ export const loadPupilUser = () => async dispatch => {
     const res = await axios.get('/api/auth/pupil');
 
     dispatch({
-      type: USER_LOADED,
+      type: PUPIL_USER_LOADED,
       payload: res.data
     });
   } catch (err) {
@@ -96,6 +98,7 @@ export const loginPupil = (email, password) => async dispatch => {
 
 // Logout / Clear Profile
 export const logout = () => dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 };
 
@@ -111,7 +114,7 @@ export const loadMentorUser = () => async dispatch => {
     const res = await axios.get('/api/auth/mentor');
 
     dispatch({
-      type: USER_LOADED,
+      type: MENTOR_USER_LOADED,
       payload: res.data
     });
   } catch (err) {

@@ -2,15 +2,22 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
+
+// Pupil
 import PupilLanding from './components/layout/PupilLanding';
-import MentorLanding from './components/layout/MentorLanding';
 import PupilRegister from './components/auth/PupilRegister';
+import PupilLogin from './components/auth/PupilLogin';
+import PupilDashboard from './components/dashboard/PupilDashboard';
+import CreatePupilProfile from './components/profile-forms/CreatePupilProfile';
+
+// Mentor
+import MentorLanding from './components/layout/MentorLanding';
 import MentorRegister from './components/auth/MentorRegister';
 import MentorLogin from './components/auth/MentorLogin';
-import PupilLogin from './components/auth/PupilLogin';
-import Alert from './components/layout/Alert';
-import PupilDashboard from './components/dashboard/PupilDashboard';
 import MentorDashboard from './components/dashboard/MentorDashboard';
+import CreateMentorProfile from './components/profile-forms/CreateMentorProfile';
+
+import Alert from './components/layout/Alert';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 //Redux
@@ -55,6 +62,16 @@ const App = () => {
                 exact
                 path='/mentor-dashboard'
                 component={MentorDashboard}
+              />
+              <PrivateRoute
+                exact
+                path='/create-pupil-profile'
+                component={CreatePupilProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/create-mentor-profile'
+                component={CreateMentorProfile}
               />
             </Switch>
           </section>

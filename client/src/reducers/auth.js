@@ -1,7 +1,8 @@
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  USER_LOADED,
+  PUPIL_USER_LOADED,
+  MENTOR_USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -23,6 +24,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
+        isPupil: true,
+        user: payload
+      };
+    case MENTOR_USER_LOADED:
+      return {
+        ...state,
+        isAuthenticated: true,
+        isMentor: true,
         user: payload
       };
     case REGISTER_SUCCESS:
@@ -43,6 +52,8 @@ export default function(state = initialState, action) {
         ...state,
         token: null,
         isAuthenticated: false,
+        isPupil: false,
+        isMentor: false,
         loading: false
       };
     default:
