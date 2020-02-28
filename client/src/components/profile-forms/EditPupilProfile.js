@@ -1,13 +1,29 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createPupilProfile } from '../../actions/profile';
+import {
+  createPupilProfile,
+  pupilGetCurrentProfile
+} from '../../actions/profile';
 
-const CreatePupilProfile = ({ createPupilProfile, history }) => {
+const EditPupilProfile = ({
+  profile: { profile, loading },
+  createPupilProfile,
+  pupilGetCurrentProfile,
+  history
+}) => {
   const [formData, setFormData] = useState({
     goal: ''
   });
+
+  useEffect(() => {
+    pupilGetCurrentProfile();
+
+    setFormData({
+      goal: loading || !profile.goal ? '' : profile.goal
+    });
+  }, [loading]);
 
   const { goal } = formData;
 
@@ -16,7 +32,7 @@ const CreatePupilProfile = ({ createPupilProfile, history }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    createPupilProfile(formData, history);
+    createPupilProfile(formData, history, true);
   };
 
   return (
@@ -48,10 +64,17 @@ const CreatePupilProfile = ({ createPupilProfile, history }) => {
   );
 };
 
-CreatePupilProfile.propTypes = {
-  createPupilProfile: PropTypes.func.isRequired
+EditPupilProfile.propTypes = {
+  pupilGetCurrentProfile: PropTypes.func.isRequired,
+  mentorGetCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
-export default connect(null, { createPupilProfile })(
-  withRouter(CreatePupilProfile)
-);
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, {
+  createPupilProfile,
+  pupilGetCurrentProfile
+})(withRouter(EditPupilProfile));

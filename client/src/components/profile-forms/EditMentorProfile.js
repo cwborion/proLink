@@ -1,16 +1,37 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createMentorProfile } from '../../actions/profile';
+import {
+  createMentorProfile,
+  mentorGetCurrentProfile
+} from '../../actions/profile';
 
-const CreateMentorProfile = ({ createMentorProfile, history }) => {
+const EditMentorProfile = ({
+  profile: { profile, loading },
+  createMentorProfile,
+  mentorGetCurrentProfile,
+  history
+}) => {
   const [formData, setFormData] = useState({
     availability: '',
     title: '',
     contactEmail: '',
     bio: ''
   });
+
+  useEffect(() => {
+    mentorGetCurrentProfile();
+
+    setFormData({
+      availability:
+        loading || !profile.availability ? '' : profile.availability,
+      title: loading || !profile.title ? '' : profile.title,
+      contactEmail:
+        loading || !profile.contactEmail ? '' : profile.contactEmail,
+      bio: loading || !profile.bio ? '' : profile.bio
+    });
+  }, [loading]);
 
   const { availability, title, contactEmail, bio } = formData;
 
@@ -19,7 +40,7 @@ const CreateMentorProfile = ({ createMentorProfile, history }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    createMentorProfile(formData, history);
+    createMentorProfile(formData, history, true);
   };
 
   return (
@@ -90,10 +111,17 @@ const CreateMentorProfile = ({ createMentorProfile, history }) => {
   );
 };
 
-CreateMentorProfile.propTypes = {
-  createMentorProfile: PropTypes.func.isRequired
+EditMentorProfile.propTypes = {
+  createMentorProfile: PropTypes.func.isRequired,
+  mentorGetCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
-export default connect(null, { createMentorProfile })(
-  withRouter(CreateMentorProfile)
-);
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, {
+  createMentorProfile,
+  mentorGetCurrentProfile
+})(withRouter(EditMentorProfile));

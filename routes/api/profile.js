@@ -141,10 +141,7 @@ router.post(
       check('title', 'Title is required')
         .not()
         .isEmpty(),
-      check('contactEmail', 'Valid contact email is required')
-        .isEmail()
-        .not()
-        .isEmpty(),
+      check('contactEmail', 'Valid contact email is required').isEmail(),
       check('bio', 'Bio is required')
         .not()
         .isEmpty()

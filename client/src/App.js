@@ -9,6 +9,7 @@ import PupilRegister from './components/auth/PupilRegister';
 import PupilLogin from './components/auth/PupilLogin';
 import PupilDashboard from './components/dashboard/PupilDashboard';
 import CreatePupilProfile from './components/profile-forms/CreatePupilProfile';
+import EditPupilProfile from './components/profile-forms/EditPupilProfile';
 
 // Mentor
 import MentorLanding from './components/layout/MentorLanding';
@@ -16,6 +17,7 @@ import MentorRegister from './components/auth/MentorRegister';
 import MentorLogin from './components/auth/MentorLogin';
 import MentorDashboard from './components/dashboard/MentorDashboard';
 import CreateMentorProfile from './components/profile-forms/CreateMentorProfile';
+import EditMentorProfile from './components/profile-forms/EditMentorProfile';
 
 import Alert from './components/layout/Alert';
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -72,6 +74,16 @@ const App = () => {
                 exact
                 path='/create-mentor-profile'
                 component={CreateMentorProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/edit-pupil-profile'
+                component={EditPupilProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/edit-mentor-profile'
+                component={EditMentorProfile}
               />
             </Switch>
           </section>
