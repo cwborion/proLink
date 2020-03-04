@@ -31,7 +31,7 @@ const EditMentorProfile = ({
         loading || !profile.contactEmail ? '' : profile.contactEmail,
       bio: loading || !profile.bio ? '' : profile.bio
     });
-  }, [loading]);
+  }, [loading, mentorGetCurrentProfile]);
 
   const { availability, title, contactEmail, bio } = formData;
 

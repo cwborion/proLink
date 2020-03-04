@@ -12,7 +12,7 @@ const Navbar = ({
     <ul>
       {isPupil && (
         <li>
-          <Link to='#!'>Mentors</Link>
+          <Link to='/profiles'>Browse Mentors</Link>
         </li>
       )}
       <li>
@@ -32,11 +32,12 @@ const Navbar = ({
 
   const guestLinks = (
     <ul>
+      <li>Login or Register as one of the following: </li>
       <li>
-        <Link to='/register'>Register</Link>
+        <Link to='/mentor-landing'>Mentor</Link>
       </li>
       <li>
-        <Link to='/login'>Login</Link>
+        <Link to='/pupil-landing'>Pupil</Link>
       </li>
     </ul>
   );

@@ -23,7 +23,7 @@ const EditPupilProfile = ({
     setFormData({
       goal: loading || !profile.goal ? '' : profile.goal
     });
-  }, [loading]);
+  }, [loading, pupilGetCurrentProfile]);
 
   const { goal } = formData;
 

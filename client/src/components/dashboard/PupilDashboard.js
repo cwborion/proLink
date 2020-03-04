@@ -16,7 +16,7 @@ const Dashboard = ({
 }) => {
   useEffect(() => {
     pupilGetCurrentProfile();
-  }, []);
+  }, [pupilGetCurrentProfile]);
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -27,6 +27,11 @@ const Dashboard = ({
       </p>
       {profile !== null ? (
         <Fragment>
+          <div>
+            <h2>Your goal -</h2>
+            <p>{profile.goal}</p>
+          </div>
+          <br />
           <div className='dash-buttons'>
             <Link to='/edit-pupil-profile' className='btn btn-light'>
               <i className='fas fa-user-circle text-primary'></i> Edit Profile

@@ -10,6 +10,8 @@ import PupilLogin from './components/auth/PupilLogin';
 import PupilDashboard from './components/dashboard/PupilDashboard';
 import CreatePupilProfile from './components/profile-forms/CreatePupilProfile';
 import EditPupilProfile from './components/profile-forms/EditPupilProfile';
+import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
 
 // Mentor
 import MentorLanding from './components/layout/MentorLanding';
@@ -55,6 +57,8 @@ const App = () => {
               <Route exact path='/mentor-register' component={MentorRegister} />
               <Route exact path='/pupil-login' component={PupilLogin} />
               <Route exact path='/mentor-login' component={MentorLogin} />
+              <Route exact path='/profiles' component={Profiles} />
+              <Route exact path='/profile/:id' component={Profile} />
               <PrivateRoute
                 exact
                 path='/pupil-dashboard'

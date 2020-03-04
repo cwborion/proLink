@@ -16,7 +16,7 @@ const MentorDashboard = ({
 }) => {
   useEffect(() => {
     mentorGetCurrentProfile();
-  }, []);
+  }, [mentorGetCurrentProfile]);
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -27,6 +27,14 @@ const MentorDashboard = ({
       </p>
       {profile !== null ? (
         <Fragment>
+          <div>
+            <h2>Your profile information -</h2>
+            <p>Title: {profile.title}</p>
+            <p>Contact Email: {profile.contactEmail}</p>
+            <p>Availability: {profile.availability}</p>
+            <p>Bio: {profile.bio}</p>
+          </div>
+          <br />
           <div className='dash-buttons'>
             <Link to='/edit-mentor-profile' className='btn btn-light'>
               <i className='fas fa-user-circle text-primary'></i> Edit Profile

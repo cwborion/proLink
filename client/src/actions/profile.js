@@ -3,6 +3,7 @@ import { setAlert } from './alert';
 
 import {
   GET_PROFILE,
+  GET_MENTOR_PROFILES,
   PROFILE_ERROR,
   ACCOUNT_DELETED,
   CLEAR_PROFILE
@@ -12,6 +13,42 @@ import {
 export const pupilGetCurrentProfile = () => async dispatch => {
   try {
     const res = await axios.get('/api/profile/pupil/me');
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get all profiles OF MENTORS FOR PUPILS TO VIEW
+export const getMentorProfiles = () => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
+
+  try {
+    const res = await axios.get('/api/profile/mentor');
+
+    dispatch({
+      type: GET_MENTOR_PROFILES,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get MENTORS profile by ID (viewed by PUPIL)
+export const getMentorProfileById = userId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/profile/mentor/${userId}`);
 
     dispatch({
       type: GET_PROFILE,
@@ -68,7 +105,7 @@ export const createPupilProfile = (
 export const deletePupilAccount = () => async dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     try {
-      const res = await axios.delete(`/api/profile/pupil`);
+      await axios.delete(`/api/profile/pupil`);
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });
@@ -149,7 +186,7 @@ export const createMentorProfile = (
 export const deleteMentorAccount = () => async dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     try {
-      const res = await axios.delete(`/api/profile/mentor`);
+      await axios.delete(`/api/profile/mentor`);
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });
