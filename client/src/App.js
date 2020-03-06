@@ -2,27 +2,13 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
+import Routes from './components/routing/Routes';
 
 // Pupil
 import PupilLanding from './components/layout/PupilLanding';
-import PupilRegister from './components/auth/PupilRegister';
-import PupilLogin from './components/auth/PupilLogin';
-import PupilDashboard from './components/dashboard/PupilDashboard';
-import CreatePupilProfile from './components/profile-forms/CreatePupilProfile';
-import EditPupilProfile from './components/profile-forms/EditPupilProfile';
-import Profiles from './components/profiles/Profiles';
-import Profile from './components/profile/Profile';
 
 // Mentor
 import MentorLanding from './components/layout/MentorLanding';
-import MentorRegister from './components/auth/MentorRegister';
-import MentorLogin from './components/auth/MentorLogin';
-import MentorDashboard from './components/dashboard/MentorDashboard';
-import CreateMentorProfile from './components/profile-forms/CreateMentorProfile';
-import EditMentorProfile from './components/profile-forms/EditMentorProfile';
-
-import Alert from './components/layout/Alert';
-import PrivateRoute from './components/routing/PrivateRoute';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -47,50 +33,12 @@ const App = () => {
       <Router>
         <Fragment>
           <Navbar />
-          <Route exact path='/' component={Landing} />
-          <Route exact path='/pupil-landing' component={PupilLanding} />
-          <Route exact path='/mentor-landing' component={MentorLanding} />
-          <section className='container'>
-            <Alert />
-            <Switch>
-              <Route exact path='/pupil-register' component={PupilRegister} />
-              <Route exact path='/mentor-register' component={MentorRegister} />
-              <Route exact path='/pupil-login' component={PupilLogin} />
-              <Route exact path='/mentor-login' component={MentorLogin} />
-              <Route exact path='/profiles' component={Profiles} />
-              <Route exact path='/profile/:id' component={Profile} />
-              <PrivateRoute
-                exact
-                path='/pupil-dashboard'
-                component={PupilDashboard}
-              />
-              <PrivateRoute
-                exact
-                path='/mentor-dashboard'
-                component={MentorDashboard}
-              />
-              <PrivateRoute
-                exact
-                path='/create-pupil-profile'
-                component={CreatePupilProfile}
-              />
-              <PrivateRoute
-                exact
-                path='/create-mentor-profile'
-                component={CreateMentorProfile}
-              />
-              <PrivateRoute
-                exact
-                path='/edit-pupil-profile'
-                component={EditPupilProfile}
-              />
-              <PrivateRoute
-                exact
-                path='/edit-mentor-profile'
-                component={EditMentorProfile}
-              />
-            </Switch>
-          </section>
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <Route exact path='/pupil-landing' component={PupilLanding} />
+            <Route exact path='/mentor-landing' component={MentorLanding} />
+            <Route component={Routes} />
+          </Switch>
         </Fragment>
       </Router>
     </Provider>
